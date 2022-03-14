@@ -34,12 +34,11 @@ export default function Login() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     let dataToSend = {
-      email: data.get('email'),
       fullname: data.get('fullname'),
       phone: data.get('phone'),
     };
-    const datasee = await sendLoginData(JSON.stringify(dataToSend));
- 
+    const res = await sendLoginData(JSON.stringify(dataToSend));
+      console.log(res)
   };
 
   return (
@@ -61,22 +60,13 @@ export default function Login() {
             Sign in
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
+            
             <TextField
               margin="normal"
               required
               fullWidth
               name="fullname"
-              label="fullname"
+              label="Full Name"
               type="text"
               id="fullname"
               
@@ -86,7 +76,7 @@ export default function Login() {
               required
               fullWidth
               name="phone"
-              label="phone"
+              label="Phone"
               type="tel"
               id="phone"
               
