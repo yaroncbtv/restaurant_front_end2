@@ -13,6 +13,9 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { sendLoginData } from '../Api/api';
+import { useSelector, useDispatch } from 'react-redux'
+
+
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -29,7 +32,9 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function Login() {
-  
+  const count = useSelector((state) => state.data.value)
+  console.log(count)
+  const [msg, setMsg] = React.useState("");
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -38,7 +43,8 @@ export default function Login() {
       phone: data.get('phone'),
     };
     const res = await sendLoginData(JSON.stringify(dataToSend));
-      console.log(res)
+    setMsg(res);
+    setTimeout(()=>{setMsg("")},3000)
   };
 
   return (
@@ -93,6 +99,7 @@ export default function Login() {
             >
               Sign In
             </Button>
+            <div>{msg}</div>
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">

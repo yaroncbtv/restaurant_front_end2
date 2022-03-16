@@ -1,4 +1,5 @@
 import Login from './Component/Login';
+import {HomePage} from './Component/HomePage';
 import {
   BrowserRouter,
   Routes,
@@ -11,9 +12,8 @@ function App() {
       
       <BrowserRouter>
     <Routes>
-      <Route path="/" element={<Login/>}>
-       
-      </Route>
+      <Route path="/" element={<Login/>}></Route>
+      <Route path="/HomePage" element={<HomePage/>}></Route>
     </Routes>
   </BrowserRouter>
     </div>
