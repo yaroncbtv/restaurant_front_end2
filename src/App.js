@@ -1,5 +1,6 @@
+import SignUp from './Component/SignUp';
+import HomePage from './Component/HomePage';
 import Login from './Component/Login';
-import {HomePage} from './Component/HomePage';
 import {
   BrowserRouter,
   Routes,
@@ -9,13 +10,13 @@ import {
 function App() {
   return (
     <div className="App">
-      
       <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<Login/>}></Route>
-      <Route path="/HomePage" element={<HomePage/>}></Route>
-    </Routes>
-  </BrowserRouter>
+        <Routes>
+          <Route path="/" element={<SignUp />}></Route>
+          <Route path="/HomePage" element={<HomePage />}></Route>
+          <Route path="/Login" element={<Login />}></Route>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

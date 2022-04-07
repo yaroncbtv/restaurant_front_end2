@@ -12,7 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { sendLoginData } from '../Api/api';
+import { addNewUser } from '../Api/api';
 import { useSelector, useDispatch } from 'react-redux'
 import { NavBar } from './NavBar';
 import Snackbar from '@mui/material/Snackbar';
@@ -40,7 +40,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-export default function Login() {
+export default function SignUp() {
   const count = useSelector((state) => state.data.value)
   console.log(count)
   const [msg, setMsg] = React.useState("");
@@ -50,11 +50,12 @@ export default function Login() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     let dataToSend = {
+      fullname: data.get('fullname'),
       phone: data.get('phone'),
       password: data.get('password')
     };
 
-    const res = await sendLoginData(JSON.stringify(dataToSend));
+    const res = await addNewUser(JSON.stringify(dataToSend));
     var resObj = JSON.parse(res);
     setMsg(resObj.message);
 
@@ -123,9 +124,19 @@ export default function Login() {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Login
+              Sign Up
             </Typography>
             <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="fullname"
+                label="Full Name"
+                type="text"
+                id="fullname"
+
+              />
               <TextField
                 margin="normal"
                 required
@@ -146,20 +157,20 @@ export default function Login() {
                 id="password"
 
               />
-              <FormControlLabel
+              {/* <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
-              />
+              /> */}
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                Login
+                Sign Up
               </Button>
 
-              <Grid container>
+              {/* <Grid container>
                 <Grid item xs>
                   <Link href="#" variant="body2">
                     Forgot password?
@@ -170,7 +181,7 @@ export default function Login() {
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>
-              </Grid>
+              </Grid> */}
             </Box>
           </Box>
           <Copyright sx={{ mt: 8, mb: 4 }} />
