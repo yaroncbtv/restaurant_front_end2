@@ -41,7 +41,8 @@ import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { NavBar } from './NavBar';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { userDataValue } from '../Store/State';
 
 function Copyright() {
   return (
@@ -61,6 +62,8 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 const theme = createTheme();
 
 export default function HomePage() {
+
+  const userData = useSelector(userDataValue);
   return (
     <ThemeProvider theme={theme}>
         <NavBar/>

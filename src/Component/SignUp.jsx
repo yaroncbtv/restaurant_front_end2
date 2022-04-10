@@ -19,6 +19,7 @@ import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import MuiAlert from '@mui/material/Alert';
+import { Link as ReactR } from "react-router-dom";
 
 
 function Copyright(props) {
@@ -56,10 +57,10 @@ export default function SignUp() {
     };
 
     const res = await addNewUser(JSON.stringify(dataToSend));
-    var resObj = JSON.parse(res);
-    setMsg(resObj.message);
 
-    switch (resObj.isSucesses) {
+    setMsg(res.message);
+
+    switch (res.isSucesses) {
       case 1:
         setMsgAlertColor("success");
         break;
@@ -170,18 +171,19 @@ export default function SignUp() {
                 Sign Up
               </Button>
 
-              {/* <Grid container>
+              <Grid container>
                 <Grid item xs>
                   <Link href="#" variant="body2">
-                    Forgot password?
+                    {/* Forgot password? */}
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="#" variant="body2">
-                    {"Don't have an account? Sign Up"}
-                  </Link>
+                  <ReactR to="/Login" variant="body2">
+                    {"You have an account? Login"}
+                  </ReactR>
+
                 </Grid>
-              </Grid> */}
+              </Grid>
             </Box>
           </Box>
           <Copyright sx={{ mt: 8, mb: 4 }} />

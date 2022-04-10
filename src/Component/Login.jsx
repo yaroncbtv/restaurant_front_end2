@@ -19,6 +19,8 @@ import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import MuiAlert from '@mui/material/Alert';
+import { useNavigate } from 'react-router-dom';
+import { Link as ReactR }  from "react-router-dom";
 
 
 function Copyright(props) {
@@ -42,25 +44,29 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 export default function Login() {
   const count = useSelector((state) => state.data.value)
-  console.log(count)
+  const navigate = useNavigate();
   const [msg, setMsg] = React.useState("");
   const [msgAlertColor, setMsgAlertColor] = React.useState("");
+  const [isChecked, setIsChecked] = React.useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    
     const data = new FormData(event.currentTarget);
     let dataToSend = {
       phone: data.get('phone'),
-      password: data.get('password')
+      password: data.get('password'),
+      stayLogin: isChecked
     };
 
     const res = await sendLoginData(JSON.stringify(dataToSend));
-    var resObj = JSON.parse(res);
-    setMsg(resObj.message);
+ 
+    setMsg(res.message);
 
-    switch (resObj.isSucesses) {
+    switch (res.isSucesses) {
       case 1:
         setMsgAlertColor("success");
+        setTimeout(() => {navigate('/homepage');}, 2000)
         break;
       case -1:
         setMsgAlertColor("error");
@@ -104,7 +110,7 @@ export default function Login() {
     </React.Fragment>
   );
 
-
+    
   return (
     <div>
       <ThemeProvider theme={theme}>
@@ -147,7 +153,7 @@ export default function Login() {
 
               />
               <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
+                control={<Checkbox onClick={() => setIsChecked(!isChecked)} checked={isChecked} value="remember" color="primary" />}
                 label="Remember me"
               />
               <Button
@@ -166,9 +172,9 @@ export default function Login() {
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="#" variant="body2">
+                  <ReactR to="/SignUp" variant="body2">
                     {"Don't have an account? Sign Up"}
-                  </Link>
+                  </ReactR>
                 </Grid>
               </Grid>
             </Box>
