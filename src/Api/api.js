@@ -15,11 +15,19 @@ export const addNewUser = async (newUser) => {
 
 export const sendLoginData = async (newUser) => {
     try {
-        const resp = await axios.post(`${baseURL}/api/login`, newUser, {headers: {
-            'Content-Type': 'application/json; charset=utf-8',
-        },credentials: 'include'});
+        const resp = await axios.post(`${baseURL}/api/login`, newUser,{
+            headers: {'Content-Type': 'application/json'},
+            withCredentials: true,
+        });
         console.log(JSON.parse(resp.data))
         return(resp.data)
+        // const response = await fetch(`${baseURL}/api/login`, {
+        //     method: 'POST',
+        //     headers: {'Content-Type': 'application/json'},
+        //     credentials: 'include',
+        //     body: newUser
+        // });
+        // return("dev")
     } catch (err) {
         // Handle Error Here
         return(err);
