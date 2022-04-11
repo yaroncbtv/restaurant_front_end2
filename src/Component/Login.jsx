@@ -21,6 +21,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import MuiAlert from '@mui/material/Alert';
 import { useNavigate } from 'react-router-dom';
 import { Link as ReactR }  from "react-router-dom";
+import { getUserData } from '../Api/api';
+import { userDataValue, setUserData } from '../Store/State';
 
 
 function Copyright(props) {
@@ -44,6 +46,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 export default function Login() {
   const count = useSelector((state) => state.data.value)
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [msg, setMsg] = React.useState("");
   const [msgAlertColor, setMsgAlertColor] = React.useState("");
@@ -60,13 +63,19 @@ export default function Login() {
     };
 
     const res = await sendLoginData(JSON.stringify(dataToSend));
- 
+    
+
     setMsg(res.message);
 
     switch (res.isSucesses) {
       case 1:
         setMsgAlertColor("success");
         setTimeout(() => {navigate('/homepage');}, 2000)
+        const userData = await getUserData();
+        if(!(userData === 401)){         
+          dispatch(setUserData(userData));
+        }
+        
         break;
       case -1:
         setMsgAlertColor("error");

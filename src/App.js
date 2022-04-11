@@ -23,7 +23,9 @@ import { margin } from '@mui/system';
     (
       async () => {
         const userData = await getUserData();
-        dispatch(setUserData(userData));
+        if(!(userData === 401)){         
+          dispatch(setUserData(userData));
+        }
       }
   )();
   },[]);

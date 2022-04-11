@@ -44,7 +44,7 @@ export const getUserData = async () => {
         return(JSON.parse(resp.data))
     } catch (err) {
         // Handle Error Here
-        return(err);
+        return(err.response.status);
     }
 }
 
@@ -62,6 +62,7 @@ export const logOutUser = async () => {
             return(resp.data)
     } catch (err) {
         // Handle Error Here
+        
         return(err);
     }
 }
