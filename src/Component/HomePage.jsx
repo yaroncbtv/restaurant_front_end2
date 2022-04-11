@@ -43,6 +43,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { NavBar } from './NavBar';
 import { useSelector, useDispatch } from 'react-redux';
 import { userDataValue } from '../Store/State';
+import Posts from './Posts';
 
 function Copyright() {
   return (
@@ -102,6 +103,9 @@ export default function HomePage() {
             </Stack>
           </Container>
         </Box>
+        <div style={{margin:'20px'}}>
+          <Posts/>
+        </div>
         
       </main>
       {/* Footer */}

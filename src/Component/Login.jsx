@@ -50,7 +50,7 @@ export default function Login() {
   const navigate = useNavigate();
   const [msg, setMsg] = React.useState("");
   const [msgAlertColor, setMsgAlertColor] = React.useState("");
-  const [isChecked, setIsChecked] = React.useState(false);
+  const [isChecked, setIsChecked] = React.useState(true);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -63,7 +63,7 @@ export default function Login() {
     };
 
     const res = await sendLoginData(JSON.stringify(dataToSend));
-    
+    console.log(res)
 
     setMsg(res.message);
 
@@ -161,10 +161,10 @@ export default function Login() {
                 id="password"
 
               />
-              <FormControlLabel
+              {/* <FormControlLabel
                 control={<Checkbox onClick={() => setIsChecked(!isChecked)} checked={isChecked} value="remember" color="primary" />}
                 label="Remember me"
-              />
+              /> */}
               <Button
                 type="submit"
                 fullWidth
