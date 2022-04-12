@@ -42,8 +42,11 @@ import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { NavBar } from './NavBar';
 import { useSelector, useDispatch } from 'react-redux';
-import { userDataValue } from '../Store/State';
+import { userDataValue, allPostValue, setAllPost} from '../Store/State';
 import Posts from './Posts';
+import { getAllPost } from '../Api/api';
+import axios from "axios";
+import HashLoader from "react-spinners/HashLoader";
 
 function Copyright() {
   return (
@@ -63,8 +66,34 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 const theme = createTheme();
 
 export default function HomePage() {
-
+  const dispatch = useDispatch();
   const userData = useSelector(userDataValue);
+  const allPost = useSelector(allPostValue);
+
+  const posts = allPost.length > 0 ? allPost.map((post) => {
+    return <div key={post.Id}><Posts post={post}/></div> 
+}): <div style={{display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center', alignContent:'center'}}>
+<div>
+<HashLoader color={'#36D7B7'} css={override} loading={true} size={50} />
+</div>
+<div>Loading...</div>
+</div>
+
+  React.useEffect(() => {
+        setInterval( async () => {
+          const allPost = await getAllPost();
+          axios.all([allPost]).then(axios.spread((...responses) => {
+            const responseOne = responses[0]
+            dispatch(setAllPost(allPost));
+            
+            // const responseTwo = responses[1]
+            // const responesThree = responses[2]
+            // use/access the results 
+          })).catch(errors => {
+            // react on errors.
+          })
+        },5000)
+  },[]);
   return (
     <ThemeProvider theme={theme}>
         <NavBar/>
@@ -103,8 +132,8 @@ export default function HomePage() {
             </Stack>
           </Container>
         </Box>
-        <div style={{margin:'20px'}}>
-          <Posts/>
+        <div style={{ display:'flex', justifyContent:'space-evenly', flexWrap:'wrap'}}>
+            {posts}
         </div>
         
       </main>
@@ -127,3 +156,7 @@ export default function HomePage() {
     </ThemeProvider>
   );
 }
+const override = `
+  display: block;
+  
+`;

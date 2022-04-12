@@ -43,7 +43,6 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 export default function SignUp() {
   const count = useSelector((state) => state.data.value)
-  console.log(count)
   const [msg, setMsg] = React.useState("");
   const [msgAlertColor, setMsgAlertColor] = React.useState("");
 

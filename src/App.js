@@ -32,7 +32,6 @@ import Admin from './Component/Admin';
 
   
   const userData = useSelector(userDataValue);
-  const userIsLogin = userData.phone ? '/homepage' : '/login';
 
   setTimeout(()=>{
     setLoadPage(false)
@@ -48,14 +47,13 @@ import Admin from './Component/Admin';
       </div>
    )
   }else{
+    
       if(userData.phone){
         return (
           <div className="App">
             <BrowserRouter>
               <Routes>
-                <Route path="/SignUp" element={<SignUp />}></Route>
                 <Route path="/HomePage" element={<HomePage />}></Route>
-                <Route path="/Login" element={<Login />}></Route>
                 <Route path="/" element={<Navigate to={'HomePage'} />}></Route>
                 <Route path="/Admin" element={<Admin />}></Route> 
                 <Route
@@ -72,7 +70,6 @@ import Admin from './Component/Admin';
           <div className="App">
             <BrowserRouter>
               <Routes>
-              
                 <Route path="/SignUp" element={<SignUp />}></Route>
                 <Route path="/Admin" element={<Admin />}></Route>
                 <Route path="/Login" element={<Login />}></Route>

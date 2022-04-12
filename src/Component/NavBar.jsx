@@ -21,7 +21,6 @@ export const NavBar = () => {
     }
 
       const userData = useSelector(userDataValue);
-      console.log(userData)
       const btnLogout = userData.Id ? <Button onClick={logOut} color="inherit">Logout</Button> : null;
     return (
         <Box sx={{ flexGrow: 1 }}>

@@ -6,7 +6,8 @@ export const globalState = createSlice({
   initialState: {
     value: [],
     homePageData:[],
-    userData:{}
+    userData:{},
+    allPost:{}
   },
   reducers: {
     // increment: (state) => {
@@ -21,6 +22,9 @@ export const globalState = createSlice({
     setUserData: (state, action)  => {
       state.userData = action.payload;
     },
+    setAllPost: (state, action)  => {
+      state.allPost = action.payload;
+    },
     removeFromArray: (state) => {
       state.homePageData.pop();
     },
@@ -30,11 +34,13 @@ export const globalState = createSlice({
 export const { 
   addToArray, 
   removeFromArray,
-  setUserData 
+  setUserData,
+  setAllPost 
 } = globalState.actions // here to add new action
 
 //export const selectData = (state) => state.data.value
 export const homePageDataValue = (state) => state.data.homePageData
 export const userDataValue = (state) => state.data.userData
+export const allPostValue = (state) => state.data.allPost
 
 export default globalState.reducer

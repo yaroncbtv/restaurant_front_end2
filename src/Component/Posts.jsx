@@ -16,6 +16,9 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import TextField from '@mui/material/TextField';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { useSelector, useDispatch } from 'react-redux';
+import { userDataValue } from '../Store/State';
+import { postUserOffer } from '../Api/api';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -28,15 +31,27 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function Posts() {
+export default function Posts({post}) {
   const [expanded, setExpanded] = React.useState(false);
+  const [inputVal, setInputVal] = React.useState('');
+  const userData = useSelector(userDataValue);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
+  const submitOfferToServer = async () => {
+        const data = {
+            postId:`${post.Id}`,
+            userPhone:userData.phone,
+            userOffer:inputVal
+        }
+   
+        const dataFromReq = await postUserOffer(JSON.stringify(data));
+  }
+
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345, marginTop:5 }}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -48,7 +63,7 @@ export default function Posts() {
             <MoreVertIcon />
           </IconButton>
         }
-        title="Shrimp and Chorizo Paella"
+        title={post.header}
         subheader="September 14, 2016"
       />
       <CardMedia
@@ -59,19 +74,18 @@ export default function Posts() {
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the mussels,
-          if you like.
+          {post.content}
         </Typography>
       </CardContent>
       <CardContent variant="body2" color="text.secondary">
-      <Typography style={{fontSize:'18px'}}>Currect Offer: </Typography>
+      <Typography style={{fontSize:'13px'}}>Start Offer: {post.startOffer} ₪</Typography>
+      <Typography style={{fontSize:'18px'}}>Currect Offer: {post.maxOffer} ₪</Typography>
       </CardContent>
       
       <CardActions disableSpacing>
           {/* <Typography variant="body2" color="text.secondary">Add Offer</Typography> */}
-          <TextField style={{width:'150px'}} size="small" type='number' id="outlined-basic" label="Add Offer" variant="outlined" />
-        <IconButton aria-label="add to favorites">
+          <TextField onChange={(e) => { setInputVal(e.target.value); }} style={{width:'150px'}} size="small" type='number' id="outlined-basic" label="Add Offer" variant="outlined" />
+        <IconButton onClick={submitOfferToServer} aria-label="add to favorites">
           {/* <FavoriteIcon /> */}
           <AddCircleIcon/>
         </IconButton>
@@ -111,3 +125,7 @@ export default function Posts() {
     </Card>
   );
 }
+const override = `
+  display: block;
+  
+`;

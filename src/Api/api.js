@@ -1,6 +1,5 @@
 import axios from "axios";
-import { userDataValue, setUserData } from '../Store/State';
-import { useSelector, useDispatch } from 'react-redux';
+
 
 const baseURL = "https://localhost:44319";
 
@@ -33,10 +32,6 @@ export const sendLoginData = async (newUser) => {
 
 export const getUserData = async () => {
     try {
-        // const resp = await axios.get(`${baseURL}/api/getuserdata`, {
-        //     headers: {'Content-Type': 'application/json'},
-        //     withCredentials: true,
-        // });
         const resp = await axios.get(`${baseURL}/api/getuserdata`, {
         headers: {'Content-Type': 'application/json'},
         withCredentials: true,
@@ -54,11 +49,31 @@ export const logOutUser = async () => {
             headers: {'Content-Type': 'application/json'},
             withCredentials: true,
             });
-        // const resp = await fetch(`${baseURL}/api/logout`, {
-        //     method: 'POST',
-        //     headers: {'Content-Type': 'application/json'},
-        //     credentials: 'include',
-        // });
+            return(resp.data)
+    } catch (err) {
+        // Handle Error Here
+        
+        return(err);
+    }
+}
+
+export const getAllPost = async () => {
+    try {
+        const resp = await axios.get(`${baseURL}/api/getallpost`, {
+        headers: {'Content-Type': 'application/json'},
+        });
+        return(JSON.parse(resp.data))
+    } catch (err) {
+        // Handle Error Here
+        return(err.response.status);
+    }
+}
+
+export const postUserOffer = async (data) => {
+    try {
+        const resp = await axios.post(`${baseURL}/api/adduseroffer`, data, {
+            headers: {'Content-Type': 'application/json'}
+            });
             return(resp.data)
     } catch (err) {
         // Handle Error Here
