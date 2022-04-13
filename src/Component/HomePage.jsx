@@ -71,7 +71,7 @@ export default function HomePage() {
   const allPost = useSelector(allPostValue);
 
   const posts = allPost.length > 0 ? allPost.map((post) => {
-    return <div key={post.Id}><Posts post={post}/></div> 
+    return <div key={post.contentPosts.Id}><Posts post={post}/></div> 
 }): <div style={{display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center', alignContent:'center'}}>
 <div>
 <HashLoader color={'#36D7B7'} css={override} loading={true} size={50} />

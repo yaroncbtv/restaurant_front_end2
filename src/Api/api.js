@@ -74,7 +74,7 @@ export const postUserOffer = async (data) => {
         const resp = await axios.post(`${baseURL}/api/adduseroffer`, data, {
             headers: {'Content-Type': 'application/json'}
             });
-            return(resp.data)
+            return(JSON.parse(resp.data))
     } catch (err) {
         // Handle Error Here
         
