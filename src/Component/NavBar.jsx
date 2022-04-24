@@ -15,7 +15,7 @@ export const NavBar = () => {
     const dispatch = useDispatch();
 
     const logOut = async () => {
-        const logOutUserRes = await logOutUser();
+         await logOutUser();
         dispatch(setUserData({}));
         navigate('/login');
     }

@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getUserData } from '../Api/api';
 
 export const globalState = createSlice({
   name: 'data',

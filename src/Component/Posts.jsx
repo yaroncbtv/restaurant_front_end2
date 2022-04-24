@@ -10,13 +10,12 @@ import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import TextField from '@mui/material/TextField';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { userDataValue } from '../Store/State';
 import { postUserOffer } from '../Api/api';
 import Alert from '@mui/material/Alert';
@@ -27,7 +26,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import ReactPaginate from 'react-paginate';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -54,24 +52,39 @@ export default function Posts({post}) {
   };
 
   const submitOfferToServer = async () => {
-        const data = {
-            postId:`${post.contentPosts.Id}`,
-            userPhone:userData.phone,
-            userOffer:inputVal
+        if(inputVal.length === 0){
+            setDataFromReq('You must input valid offer')
+            setDataFromReqAlert(true);
+            setTimeout(() => {
+                setDataFromReqAlert(false)
+            }, 2000)
         }
-   
-        const dataFromReq = await postUserOffer(JSON.stringify(data));
-        
-        setDataFromReq(dataFromReq)
-        setDataFromReqAlert(true);
-        setTimeout(() => {
-            setDataFromReqAlert(false)
-        }, 2000)
+        else if(post.contentPosts.maxOffer >= inputVal){
+            setDataFromReq('You must submit higher offer')
+            setDataFromReqAlert(true);
+            setTimeout(() => {
+                setDataFromReqAlert(false)
+            }, 2000)
+        }else{
+            const data = {
+                postId:`${post.contentPosts.Id}`,
+                userPhone:userData.phone,
+                userOffer:inputVal
+            }
+       
+            const dataFromReq = await postUserOffer(JSON.stringify(data));
+            
+            setDataFromReq(dataFromReq)
+            setDataFromReqAlert(true);
+            setTimeout(() => {
+                setDataFromReqAlert(false)
+            }, 2000)
+        }  
   }
-  const submitMsgOffer = dataFromReqAlert ? <Alert severity="success">{dataFromReq.message}</Alert>: null;
-  const allUserOffer = post.post.map( (post) => {
-    return <Typography key={post.Id}>- {`${post.userOffer} ₪`}</Typography>
-  })
+  const submitMsgOffer = dataFromReqAlert ? <Alert severity={dataFromReq.message ? "success" : "error"}>{dataFromReq.message ? dataFromReq.message : dataFromReq}</Alert>: null;
+//   const allUserOffer = post.post.map( (post) => {
+//     return <Typography key={post.Id}>- {`${post.userOffer} ₪`}</Typography>
+//   })
 
 
 
