@@ -81,3 +81,16 @@ export const postUserOffer = async (data) => {
         return(err);
     }
 }
+
+export const newPost = async (data) => {
+    try {
+        const resp = await axios.post(`${baseURL}/api/addpost`, data, {
+            headers: {'Content-Type': 'application/json'}
+            });
+            return(JSON.parse(resp.data))
+    } catch (err) {
+        // Handle Error Here
+        
+        return(err);
+    }
+}

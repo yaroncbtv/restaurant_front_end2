@@ -6,6 +6,7 @@ import Stack from '@mui/material/Stack';
 import Pagination from 'pagination-react-hooks';
 import ReactPaginate from 'react-paginate';
 import styled from 'styled-components';
+import { newPost } from '../Api/api';
 
 const MyPaginate = styled(ReactPaginate).attrs({
     // You can redifine classes here, if you want.
@@ -103,12 +104,12 @@ function Items({ currentItems }) {
     const [header, setHeader] = React.useState("");
     const [content, setContent] = React.useState("");
     const [startOffer, setStartOffer] = React.useState("");
-    const [endSale, setEndSale] = React.useState("");
+    const [msgFromServer, setMsgFromServer] = React.useState("");
     const [date, setDate] = React.useState("");
     const [time, setTime] = React.useState("");
     
 
-    const sendDataToServer = () => {
+    const sendDataToServer = async () => {
         const dataToSend = {
             header: header,
             content: content,
@@ -116,7 +117,10 @@ function Items({ currentItems }) {
             date:date,
             time:time
         }
-        console.log(dataToSend)
+
+        const result = await newPost(JSON.stringify(dataToSend));
+        setMsgFromServer(result.message)
+        setTimeout(() => {setMsgFromServer("")},2000)
     }
 
     React.useEffect(() => {
@@ -144,7 +148,7 @@ function Items({ currentItems }) {
         <h1>Admin</h1>
         <TextField style={root} onChange={e => setHeader(e.target.value)} id="header" label="header    " variant="outlined" />
         <TextField style={root} onChange={e => setContent(e.target.value)} id="content" label="content" variant="outlined" />
-        <TextField style={root} onChange={e => setStartOffer(e.target.value)} id="startOffer" label="startOffer" variant="outlined" />
+        <TextField type='number' style={root} onChange={e => setStartOffer(e.target.value)} id="startOffer" label="startOffer" variant="outlined" />
         {/* <TextField style={root} onChange={e => setEndSale(e.target.value)} id="endSale" label="endSale" variant="outlined" /> */}
 
       <TextField
@@ -177,6 +181,7 @@ function Items({ currentItems }) {
    
 
     <Button onClick={sendDataToServer} style={root} variant="contained">Add New Card</Button>
+    <div>{msgFromServer}</div>
 {/* 
     <Pagination
             data={posts}
