@@ -90,10 +90,6 @@ export default function Posts({ post }) {
    
 
     function Items({ currentItems }) {
-
-   
-               
-           
         return (
             <>
                 {currentItems &&
@@ -124,8 +120,9 @@ export default function Posts({ post }) {
         );
     }
 
-    const [currentItems, setCurrentItems] = React.useState(null);
-    const [pageCount, setPageCount] = React.useState(0);
+    // const [currentItems, setCurrentItems] = React.useState(null);
+    // const [pageCount, setPageCount] = React.useState(0);
+    // const [endOffset, setEndOffset] = React.useState(0);
     const [itemOffset, setItemOffset] = React.useState(0);
     const [itemsPerPage] = React.useState(5);
 
@@ -135,12 +132,17 @@ export default function Posts({ post }) {
         setItemOffset(newOffset);
     };
 
-    React.useEffect(() => {
-        // Fetch items from another resources.
-        const endOffset = itemOffset + itemsPerPage;
-        setCurrentItems(post.post.slice(itemOffset, endOffset));
-        setPageCount(Math.ceil(post.post.length / itemsPerPage));
-    }, [itemOffset, itemsPerPage]);
+    // React.useEffect(() => {
+    //     // Fetch items from another resources.
+    //     const endOffset = itemOffset + itemsPerPage;
+    //     setCurrentItems(post.post.slice(itemOffset, endOffset));
+    //     setPageCount(Math.ceil(post.post.length / itemsPerPage));
+    // }, [itemOffset, itemsPerPage]);
+    
+        var endOffset = itemOffset + itemsPerPage;
+        var setCurrentItems = post.post.slice(itemOffset, endOffset);
+        var setPageCount = Math.ceil(post.post.length / itemsPerPage);
+    
     return (
         <Card sx={{ maxWidth: 345, marginTop: 5 }}>
             <CardHeader
@@ -212,7 +214,7 @@ export default function Posts({ post }) {
 
 
                                 <>
-                                    <Items currentItems={currentItems} />
+                                    <Items currentItems={setCurrentItems} />
                                 </>
                             </TableBody>
                         </Table>
@@ -223,7 +225,7 @@ export default function Posts({ post }) {
                             onPageChange={handlePageClick}
                             pageRangeDisplayed={3}
                             marginPagesDisplayed={2}
-                            pageCount={pageCount}
+                            pageCount={setPageCount}
                             previousLabel="<"
                             pageClassName="page-item"
                             pageLinkClassName="page-link"

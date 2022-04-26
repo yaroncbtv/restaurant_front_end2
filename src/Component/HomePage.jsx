@@ -69,7 +69,6 @@ export default function HomePage() {
   const dispatch = useDispatch();
   const userData = useSelector(userDataValue);
   const allPost = useSelector(allPostValue);
-
   const posts = allPost.length > 0 ? allPost.map((post) => {
     return <div key={post.contentPosts.Id}><Posts post={post}/></div> 
 }): <div style={{display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center', alignContent:'center'}}>
@@ -85,7 +84,7 @@ export default function HomePage() {
           axios.all([allPost]).then(axios.spread((...responses) => {
             const responseOne = responses[0]
             dispatch(setAllPost(allPost));
-            
+           
             // const responseTwo = responses[1]
             // const responesThree = responses[2]
             // use/access the results 
