@@ -11,11 +11,10 @@ import {
 import { userDataValue, setUserData } from './Store/State';
 import { useSelector, useDispatch } from 'react-redux';
 import { getUserData } from './Api/api';
-import GridLoader
-from "react-spinners/GridLoader";
+import GridLoader from "react-spinners/GridLoader";
 import { margin } from '@mui/system';
 import Admin from './Component/Admin';
- function App() {
+function App() {
   const dispatch = useDispatch();
 
   const [loadPage, setLoadPage] = React.useState(true);
@@ -23,73 +22,75 @@ import Admin from './Component/Admin';
     (
       async () => {
         const userData = await getUserData();
-        if(!(userData === 401)){         
+        if (!(userData === 401)) {
           dispatch(setUserData(userData));
         }
       }
-  )();
-  },[]);
+    )();
+    setTimeout(() => {
+      setLoadPage(false)
+    }, 1000)
+  }, []);
 
-  
+
+
   const userData = useSelector(userDataValue);
 
-  setTimeout(()=>{
-    setLoadPage(false)
-  },1000)
-
-  if(loadPage){
+  if (!userData.Id && loadPage) {
     return (
-      <div style={{marginTop:'200px',display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center', alignContent:'center'}}>
+      <div style={{ marginTop: '200px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', alignContent: 'center' }}>
         <div>
-        <GridLoader color={'#36D7B7'} css={override} loading={true} size={30} />
+          <GridLoader color={'#36D7B7'} css={override} loading={true} size={30} />
         </div>
         <div>Loading...</div>
       </div>
-   )
-  }else{
-    
-      if(userData.phone){
-        return (
-          <div className="App">
-            <BrowserRouter>
-              <Routes>
-                <Route path="/HomePage" element={<HomePage />}></Route>
-                <Route path="/" element={<Navigate to={'HomePage'} />}></Route>
-                <Route path="/Admin" element={<Admin />}></Route> 
-                <Route
-                  path="*"s
-                  element={<Navigate to="/HomePage" />} // 404 page
-                />
-              </Routes>
-            </BrowserRouter>
-            
-          </div>
-        );
-      }else{
-        return (
-          <div className="App">
-            <BrowserRouter>
-              <Routes>
-                <Route path="/SignUp" element={<SignUp />}></Route>
-                <Route path="/Admin" element={<Admin />}></Route>
-                <Route path="/Login" element={<Login />}></Route>
-                <Route path="/" element={<Navigate to={'Login'} />}></Route>
-                <Route
-                  path="*"s
-                  element={<Navigate to="/Login" />} // 404 page
-                />
-              </Routes>
-            </BrowserRouter>
-            
-          </div>
-        );
-      }
+    )
 
-
-    
   }
-    
-  
+  else {
+
+    if (userData.phone) {
+      return (
+        <div className="App">
+          <BrowserRouter>
+            <Routes>
+              <Route path="/HomePage" element={<HomePage />}></Route>
+              <Route path="/" element={<Navigate to={'HomePage'} />}></Route>
+              <Route path="/Admin" element={<Admin />}></Route>
+              <Route
+                path="*" s
+                element={<Navigate to="/HomePage" />} // 404 page
+              />
+            </Routes>
+          </BrowserRouter>
+
+        </div>
+      );
+    } else {
+      return (
+        <div className="App">
+          <BrowserRouter>
+            <Routes>
+              <Route path="/SignUp" element={<SignUp />}></Route>
+              <Route path="/Admin" element={<Admin />}></Route>
+              <Route path="/Login" element={<Login />}></Route>
+              <Route path="/" element={<Navigate to={'Login'} />}></Route>
+              <Route
+                path="*" s
+                element={<Navigate to="/Login" />} // 404 page
+              />
+            </Routes>
+          </BrowserRouter>
+
+        </div>
+      );
+    }
+
+
+
+  }
+
+
 }
 const override = `
   display: block;
