@@ -1,7 +1,8 @@
 import axios from "axios";
 
 
-const baseURL = "https://localhost:44319";
+//const baseURL = "https://localhost:44319";
+const baseURL = "https://restaurantbackend220220426133039.azurewebsites.net";
 
 
 export const addNewUser = async (newUser) => {
