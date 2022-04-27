@@ -54,8 +54,8 @@ function App() {
         <div className="App">
           <BrowserRouter>
             <Routes>
-              <Route path="/HomePage" element={<HomePage />}></Route>
-              <Route path="/" element={<Navigate to={'HomePage'} />}></Route>
+              <Route path="/" element={<HomePage />}></Route>
+              {/* <Route path="/" element={<Navigate to={'HomePage'} />}></Route> */}
               <Route path="/Admin" element={<Admin />}></Route>
               <Route
                 path="*" s
@@ -73,8 +73,8 @@ function App() {
             <Routes>
               <Route path="/SignUp" element={<SignUp />}></Route>
               <Route path="/Admin" element={<Admin />}></Route>
-              <Route path="/Login" element={<Login />}></Route>
-              <Route path="/" element={<Navigate to={'Login'} />}></Route>
+              <Route path="/" element={<Login />}></Route>
+              {/* <Route path="/" element={<Navigate to={'Login'} />}></Route> */}
               <Route
                 path="*" s
                 element={<Navigate to="/Login" />} // 404 page
