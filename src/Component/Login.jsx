@@ -59,14 +59,13 @@ export default function Login() {
     };
 
     const res = await sendLoginData(JSON.stringify(dataToSend));
-    console.log(res)
 
     setMsg(res.message);
 
     switch (res.isSucesses) {
       case 1:
         setMsgAlertColor("success");
-        setTimeout(() => {navigate('/homepage');}, 2000)
+        setTimeout(() => {navigate('/');}, 2000)
         const userData = await getUserData();
         if(!(userData === 401)){         
           dispatch(setUserData(userData));

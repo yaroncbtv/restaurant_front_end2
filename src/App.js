@@ -14,6 +14,9 @@ import { getUserData } from './Api/api';
 import GridLoader from "react-spinners/GridLoader";
 import { margin } from '@mui/system';
 import Admin from './Component/Admin';
+import {UserProfile} from './Component/UserProfile';
+import {Chat} from './Component/Chat';
+
 function App() {
   const dispatch = useDispatch();
 
@@ -55,11 +58,13 @@ function App() {
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<HomePage />}></Route>
+              <Route path="/userprofile" element={<UserProfile />}></Route>
+              <Route path="/chat" element={<Chat />}></Route>
               {/* <Route path="/" element={<Navigate to={'HomePage'} />}></Route> */}
-              <Route path="/Admin" element={<Admin />}></Route>
+              <Route path="/admin" element={<Admin />}></Route>
               <Route
                 path="*" s
-                element={<Navigate to="/HomePage" />} // 404 page
+                element={<Navigate to="/" />} // 404 page
               />
             </Routes>
           </BrowserRouter>
@@ -71,13 +76,13 @@ function App() {
         <div className="App">
           <BrowserRouter>
             <Routes>
-              <Route path="/SignUp" element={<SignUp />}></Route>
-              <Route path="/Admin" element={<Admin />}></Route>
+              <Route path="/signup" element={<SignUp />}></Route>
+              <Route path="/admin" element={<Admin />}></Route>
               <Route path="/" element={<Login />}></Route>
               {/* <Route path="/" element={<Navigate to={'Login'} />}></Route> */}
               <Route
                 path="*" s
-                element={<Navigate to="/Login" />} // 404 page
+                element={<Navigate to="/" />} // 404 page
               />
             </Routes>
           </BrowserRouter>
