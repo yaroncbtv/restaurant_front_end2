@@ -58,10 +58,6 @@ export default function Login() {
       password: data.get('password'),
       stayLogin: isChecked
     };
-
-
-    console.log(dataToSend)
-
     const res = await sendLoginData(JSON.stringify(dataToSend));
     setMsg(res.message);
     setOpen(true);
