@@ -47,6 +47,7 @@ export default function Login() {
   const [msg, setMsg] = React.useState("");
   const [msgAlertColor, setMsgAlertColor] = React.useState("");
   const [isChecked] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -58,14 +59,16 @@ export default function Login() {
       stayLogin: isChecked
     };
 
+
+    console.log(dataToSend)
+
     const res = await sendLoginData(JSON.stringify(dataToSend));
-
     setMsg(res.message);
-
+    setOpen(true);
     switch (res.isSucesses) {
       case 1:
         setMsgAlertColor("success");
-        setTimeout(() => {navigate('/');}, 2000)
+        setTimeout(() => {navigate('/');}, 3000)
         const userData = await getUserData();
         if(!(userData === 401)){         
           dispatch(setUserData(userData));
@@ -88,7 +91,6 @@ export default function Login() {
   };
 
 
-  const [open, setOpen] = React.useState(false);
 
   // const handleClick = () => {
   //   setOpen(true);
@@ -190,7 +192,7 @@ export default function Login() {
       </ThemeProvider>
       <div>
         {/* <Button onClick={handleClick}>Open simple snackbar</Button> */}
-        <Snackbar anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} open={open} autoHideDuration={2000} onClose={handleClose}>
+        <Snackbar anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} open={open} autoHideDuration={3000} onClose={handleClose}>
           <Alert onClose={handleClose} severity={msgAlertColor} sx={{ width: '100%' }}>
             {msg}
           </Alert>
