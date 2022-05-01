@@ -15,6 +15,7 @@ import { NavBar } from './NavBar';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import { Link as ReactR } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 
 function Copyright(props) {
@@ -40,6 +41,7 @@ export default function SignUp() {
   // const count = useSelector((state) => state.data.value)
   const [msg, setMsg] = React.useState("");
   const [msgAlertColor, setMsgAlertColor] = React.useState("");
+  let navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -57,6 +59,7 @@ export default function SignUp() {
     switch (res.isSucesses) {
       case 1:
         setMsgAlertColor("success");
+        setTimeout(()=>{navigate('/login');} ,1500)
         break;
       case -1:
         setMsgAlertColor("error");
@@ -138,7 +141,7 @@ export default function SignUp() {
                 fullWidth
                 name="phone"
                 label="Phone"
-                type="tel"
+                type='number'
                 id="phone"
 
               />

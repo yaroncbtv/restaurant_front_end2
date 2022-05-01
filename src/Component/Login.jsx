@@ -142,7 +142,7 @@ export default function Login() {
                 fullWidth
                 name="phone"
                 label="Phone"
-                type="tel"
+                type='number'
                 id="phone"
 
               />
