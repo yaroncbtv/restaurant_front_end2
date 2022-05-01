@@ -60,7 +60,7 @@ export default function Posts({ post }) {
                 setDataFromReqAlert(false)
             }, 2000)
         }
-        else if (post.contentPosts.maxOffer >= inputVal) {
+        else if (parseInt(post.contentPosts.maxOffer) >= parseInt(inputVal)) {
             setDataFromReq('You must submit higher offer')
             setDataFromReqAlert(true);
             setTimeout(() => {
